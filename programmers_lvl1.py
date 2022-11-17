@@ -1046,6 +1046,24 @@ def 신고_결과_받기_다른코드2(id_list, report, k): # 직관적이고 �
     return answer
 
 
-
-print(신고_결과_받기(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2))
+# print(신고_결과_받기(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2))
 # print(신고_결과_받기(["con", "ryan"],["ryan con", "ryan con", "ryan con", "ryan con"], 3))
+
+def 기사단원의_무기(number:int, limit:int, power:int) -> int:
+
+    result = int()
+    for i in range(2, number+1):
+        count = 0
+        for j in range(1, int(math.sqrt(i) + 1)):
+            if i % j == 0:
+                count += 1
+                if j != (i // j):
+                    count += 1
+        if not count > limit:
+            result += count
+        else:
+            result += power
+    # result = map(lambda x: power if x > limit else x, result)
+    return result + 1
+print(기사단원의_무기(5, 3, 2))
+print(기사단원의_무기(10, 3, 2))
