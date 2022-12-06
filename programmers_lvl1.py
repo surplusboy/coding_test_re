@@ -1065,5 +1065,48 @@ def 기사단원의_무기(number:int, limit:int, power:int) -> int:
             result += power
     # result = map(lambda x: power if x > limit else x, result)
     return result + 1
-print(기사단원의_무기(5, 3, 2))
-print(기사단원의_무기(10, 3, 2))
+# print(기사단원의_무기(5, 3, 2))
+# print(기사단원의_무기(10, 3, 2))
+
+def 문자열_나누기(s):
+    stack = list()
+    x = s[0]
+    stack.append(x)
+    cnt = 0
+
+    for i in s[1:]:
+        if len(stack) == 0:
+            x = i
+            stack.append(x)
+            continue
+        if i == x:
+            stack.append(i)
+        elif i != x:
+            stack.pop()
+            if len(stack) == 0:
+                cnt += 1
+
+    if stack:
+        cnt += 1
+
+    return cnt
+
+# print(문자열_나누기('banana'))
+# print(문자열_나누기('aaabbaccccabba'))
+# print(문자열_나누기("abracadabra"))
+
+def 명예의_전당_1(k, score):
+    hof = list()
+    result = list()
+
+    for i in score:
+        hof.append(i)
+        if len(hof) > k:
+            hof.sort(reverse=True)
+            hof.pop()
+        result.append(min(hof[:k]))
+
+    return result
+
+
+print(명예의_전당_1(3, [10, 100, 20, 150, 1, 100, 200]))
