@@ -1,3 +1,4 @@
+import itertools
 import math
 import re
 from functools import reduce
@@ -134,6 +135,111 @@ def 카펫(brown, yellow) -> list:
             return [int(a/i), i]
 
 
-print(카펫(10,2))
-print(카펫(18,6))
-print(카펫(24,24))
+# print(카펫(10,2))
+# print(카펫(18,6))
+# print(카펫(24,24))
+
+def 멀리_뛰기(n):
+    # combi_list = list()
+    # combi_list.append([n, 0])
+    #
+    # loop = n // 2
+
+    # for i in range(1, loop + 1):
+    #     combi_list.append([n-(i*2),i])
+    # print(combi_list)
+    # result = list()
+
+    # for x, y in combi_list:
+    #     print(x,y)
+        # result.append(math.factorial(x+y) / math.factorial(x) / math.factorial(y))
+
+    # return int(sum(result) % 1234567)
+    cnt = 0
+    a, b = 0, 1
+    while cnt < n:
+        a, b = b, a + b
+        cnt += 1
+    return b%1234567
+
+
+# print(멀리_뛰기(12))
+
+def 짝지어_제거하기(s):
+    stack = list()
+
+    for i in s:
+        if len(stack) >= 1:
+            if i == stack[-1]:
+                stack.pop()
+            else:
+                stack.append(i)
+        else:
+            stack.append(i)
+    if stack:
+        return 0
+    else:
+        return 1
+
+# print(짝지어_제거하기('baabaa'))
+# print(짝지어_제거하기('cdcd'))
+
+def 영어_끝말잇기(n, words):
+    stack = list()
+    cnt = 1
+    stack.append(words[0])
+
+    for idx, data in enumerate(words[1:]):
+        cnt += 1
+        if stack[-1][-1] != data[0]:
+            return [cnt, (idx+1)//n+1]
+
+        if data not in stack:
+            stack.append(data)
+        else:
+            return [cnt, (idx+1)//n+1]
+        if cnt == n:
+            cnt = 0
+    return [0, 0]
+
+
+# print(영어_끝말잇기(3, ["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"]))
+# print(영어_끝말잇기(5, 	["hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"]))
+# print(영어_끝말잇기(2, ["hello", "one", "even", "never", "now", "world", "draw"]))
+
+# print(int('a0_0x47dd'))
+
+from collections import deque
+def 구명보트(people, limit) -> int:
+    cnt = 0
+    people.sort()
+
+    people = deque(people)
+    while people:
+        value = people.pop()
+        print(value)
+        if not people:
+            cnt += 1
+            break
+        else:
+            if people[0] + value <= limit:
+                people.popleft()
+                cnt += 1
+            else: cnt += 1
+
+    return cnt
+
+print(구명보트([70, 50, 80, 50], 100))
+
+def 구명보트_간결(people, limit) -> int:
+    answer = 0
+    people.sort()
+
+    a = 0
+    b = len(people) - 1
+    while a < b:
+        if people[b] + people[a] <= limit:
+            a += 1
+            answer += 1
+        b -= 1
+    return len(people) - answer

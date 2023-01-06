@@ -1109,4 +1109,20 @@ def 명예의_전당_1(k, score):
     return result
 
 
-print(명예의_전당_1(3, [10, 100, 20, 150, 1, 100, 200]))
+# print(명예의_전당_1(3, [10, 100, 20, 150, 1, 100, 200]))
+
+def 가장_가까운_같은_글자(s:str) -> list:
+    idx_dict = dict()
+    result = list()
+
+    for idx, data in enumerate(s):
+        if idx_dict.get(data) is not None:
+            result.append(idx - idx_dict.get(data))
+            idx_dict[data] = idx
+        else:
+            result.append(-1)
+            idx_dict[data] = idx
+    return result
+
+
+print(가장_가까운_같은_글자('ddd'))

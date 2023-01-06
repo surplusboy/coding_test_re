@@ -1,16 +1,7 @@
-# Doubly Linked List (양방향 연결 리스트)
-
-'''
-양방향 연결 리스트가 힘을 발휘할 때 : Task Switching 등
-
-1. 노드를 확장
-2. head와 tail dummy node 생성
-'''
-
 class Node:
     def __init__(self, item):
         self.data = item
-        self.prev = None # 양방향으로 노드를 연결하기 위해 확장
+        self.prev = None
         self.next = None
 
 class DoublyLinkedList:
@@ -22,6 +13,9 @@ class DoublyLinkedList:
         self.head.next = self.tail
         self.tail.prev = self.head
         self.tail.next = None
+
+    def getLength(self):
+        return self.nodeCount
 
     def traverse(self):
         result = list()
@@ -39,10 +33,6 @@ class DoublyLinkedList:
             result.append(curr.data)
         return result
 
-    def getLength(self):
-        return self.nodeCount
-
-    # insert 관련 메소드
     def insertAt(self, pos, newNode, before=False):
         if pos < 1 or pos > self.nodeCount + 1:
             raise IndexError
@@ -73,7 +63,6 @@ class DoublyLinkedList:
         self.nodeCount += 1
         return True
 
-    # pop 관련 메소드
     def popAt(self, pos, option=None):
         if pos < 1 or pos > self.nodeCount:
             raise IndexError
@@ -88,7 +77,6 @@ class DoublyLinkedList:
             return self.popAfter(curr)
         elif option is False and pos > 1:
             return self.popBefore(curr)
-
 
     def popAfter(self, prev):
         curr = prev.next
@@ -134,33 +122,3 @@ class DoublyLinkedList:
                 curr = curr.next
                 i += 1
         return curr
-
-'''
-insertBefore O
-popAfter
-popBefore
-popAt
-concat
-'''
-
-
-a = Node(0)
-b = Node('test')
-L = DoublyLinkedList()
-L2 = DoublyLinkedList()
-# for i in range(1, 11):
-#     L.insertAt(i, Node(i))
-
-for idx, data in enumerate(range(11, 21)):
-    print(idx)
-    L2.insertAt(idx+1, Node(data))
-
-# L.insertAt(1, a)
-# L.insertAt(10, b, before=True)
-print(L.traverse())
-# print(L.popAt(10, option=False))
-# print(L.traverse())
-print(L2.traverse())
-L.concat(L2)
-print(L.traverse())
-print(L.nodeCount)
